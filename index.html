@@ -1,0 +1,36 @@
+<!DOCKTYPE html>
+<html>
+<head>
+    <title>Go websockets example</title>
+    <style>
+        html {
+            text-align: center;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Go websocket example</h1>
+        <pre id="output"></pre>
+    </div>
+
+    <script>
+        const output = document.getElementById("output");
+        const socket = new WebSocket("ws://localhost:8080/ping");
+
+        socket.onopen = function () {
+            output.innerHTML += "Status: Connected\n";
+        };
+
+        socket.onmessage = function (e) {
+            output.innerHTML += "\nServer: " + e.data + "\n";
+        };
+
+        setInterval(function () {
+            socket.send("ping from backend")
+        }, 2000)
+
+    </script>
+</body>
+</html>
